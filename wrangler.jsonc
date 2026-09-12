@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "wetwipe-qr",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-11",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "html_handling": "none",
+    "not_found_handling": "none"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "wetwipe-pilot-db",
+      "database_id": "e745312f-658c-49a0-a9f1-ff5f71ddb9a4",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

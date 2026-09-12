@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Wet Wipe QR Pilot</title>
+    <style>
+      :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+      body { min-height: 100vh; margin: 0; display: grid; place-items: center; text-align: center; }
+      main { padding: 1.5rem; }
+      button { font: inherit; padding: 0.6rem 1rem; cursor: pointer; }
+      [hidden] { display: none; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p id="status" role="status">loading...</p>
+      <button id="retry" type="button" hidden>Try again</button>
+    </main>
+    <script>
+      const status = document.querySelector("#status");
+      const retry = document.querySelector("#retry");
+
+      async function recordScan() {
+        retry.hidden = true;
+        status.textContent = "loading...";
+
+        try {
+          const response = await fetch("/api/scan", {
+            method: "POST",
+            headers: { Accept: "application/json" },
+            cache: "no-store",
+          });
+          const data = await response.json();
+
+          if (!response.ok || !data.ok || typeof data.memeUrl !== "string") {
+            throw new Error("Scan failed");
+          }
+
+          window.location.replace(data.memeUrl);
+        } catch {
+          status.textContent = "Something went wrong. Please try again.";
+          retry.hidden = false;
+        }
+      }
+
+      retry.addEventListener("click", recordScan);
+      recordScan();
+    </script>
+  </body>
+</html>
