@@ -240,3 +240,5 @@ https://wetwipe-qr.YOUR_CLOUDFLARE_SUBDOMAIN.workers.dev/s
 ```
 
 The only values/assets intentionally left for you are the D1 database UUID, the Cloudflare workers.dev subdomain determined by your account, and the five actual PNG files.
+
+Auto deploy test.
